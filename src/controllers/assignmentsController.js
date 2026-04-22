@@ -4,7 +4,7 @@ import { Assignments } from '../models/assignments.js';
 export const getAssignments = async (req, res) => {
   const { page = 1, perPage = 10, status } = req.query;
   const skip = (page - 1) * perPage;
-  const assignmentsQuery = Assignments.find({ userId: req.user._id });
+  const assignmentsQuery = Assignments.find();
 
   if (status) {
     assignmentsQuery.where("status").equals(status);
@@ -17,9 +17,9 @@ export const getAssignments = async (req, res) => {
   res.status(200).json(
     {
       page,
-    perPage,
-    totalItems,
-    totalPages,
+      perPage,
+      totalItems,
+      totalPages,
       assignments
     });
 };
@@ -63,7 +63,7 @@ export const updateAssignments = async (req, res) => {
   const { assignmentsId } = req.params;
 
   const assignments = await Assignments.findOneAndUpdate(
-    { _id: assignmentsId, userId: req.user._id },
+    { _id: assignmentsId },
     req.body,
     { returnDocument: "after" },
   );
