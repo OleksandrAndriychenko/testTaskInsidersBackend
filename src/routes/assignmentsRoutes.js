@@ -13,11 +13,11 @@ import {
   getAssignmentsSchema,
   updateAssignmentsSchema
 } from '../validations/assignmentsValidation.js';
-// import { authenticate } from "../middleware/authenticate.js";
+import { authenticate } from "../middleware/authenticate.js";
 
 const router = Router();
 
-// router.use("/assignments", authenticate);
+router.use("/assignments", authenticate);
 
 router.get('/assignments',celebrate(getAssignmentsSchema), getAssignments);
 router.get('/assignments/:assignmentsId',celebrate(assignmentsIdParamSchema), getAssignmentsById);
